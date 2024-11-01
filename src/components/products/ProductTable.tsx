@@ -7,7 +7,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { DialogTrigger } from '@/components/ui/dialog';
 import { Edit, Trash2 } from 'lucide-react';
 import { useProductContext } from './ProductContext';
 
@@ -35,15 +34,9 @@ export default function ProductTable({ onEdit }: Props) {
             <TableCell>{product.stock}</TableCell>
             <TableCell>${product.price.toFixed(2)}</TableCell>
             <TableCell>
-              <DialogTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onEdit(product)}
-                >
-                  <Edit className="h-4 w-4" />
-                </Button>
-              </DialogTrigger>
+              <Button variant="ghost" size="sm" onClick={() => onEdit(product)}>
+                <Edit className="h-4 w-4" />
+              </Button>
               <Button
                 variant="ghost"
                 size="sm"

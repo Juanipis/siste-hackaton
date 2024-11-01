@@ -1,10 +1,9 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { useProductContext } from './ProductContext';
+import { useState, useEffect } from 'react';
 
-type Props = {
+type ProductFormProps = {
   initialProduct?: { name: string; stock: number; price: number };
   onSubmit: (product: { name: string; stock: number; price: number }) => void;
   onClose: () => void;
@@ -14,10 +13,16 @@ export default function ProductForm({
   initialProduct,
   onSubmit,
   onClose,
-}: Props) {
+}: ProductFormProps) {
   const [product, setProduct] = useState(
     initialProduct || { name: '', stock: 0, price: 0 }
   );
+
+  useEffect(() => {
+    if (initialProduct) {
+      setProduct(initialProduct);
+    }
+  }, [initialProduct]);
 
   return (
     <div>
@@ -63,12 +68,14 @@ export default function ProductForm({
           />
         </div>
       </div>
-      <Button type="submit" onClick={() => onSubmit(product)}>
-        Guardar Producto
-      </Button>
-      <Button variant="ghost" onClick={onClose}>
-        Cancelar
-      </Button>
+      <div className="flex justify-end space-x-2">
+        <Button type="button" onClick={() => onSubmit(product)}>
+          Guardar Producto
+        </Button>
+        <Button variant="ghost" type="button" onClick={onClose}>
+          Cancelar
+        </Button>
+      </div>
     </div>
   );
 }
